@@ -1,19 +1,12 @@
-import { ListGroup, Card } from 'react-bootstrap';
-import { LazyPanda } from '../assets/images';
+import { ListGroup } from 'react-bootstrap';
+import ProcrastinationCard from './ProcrastinationCard';
 
-export default function ProcrastinationList({ list }) {
-  console.info(list);
+export default function ProcrastinationList({ list, deleteAction }) {
   return (
     <ListGroup>
-      {list.map((item, index) => (
-        <ListGroup.Item key={index}>
-          <Card>
-            <Card.Img variant='top' src={LazyPanda} />
-            <Card.Body>
-              <Card.Title>{item.subject}</Card.Title>
-              <Card.Text>{item.description}</Card.Text>
-            </Card.Body>
-          </Card>
+      {list.map((item) => (
+        <ListGroup.Item key={item.id}>
+          <ProcrastinationCard procrastination={item} deleteAction={deleteAction} />
         </ListGroup.Item>
       ))}
     </ListGroup>

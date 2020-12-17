@@ -23,7 +23,14 @@ function App() {
             />
           </Col>
           <Col>
-            {procrastinations.length > 0 && <ProcrastinationList list={procrastinations} />}
+            {procrastinations.length > 0 && (
+              <ProcrastinationList
+                list={procrastinations}
+                deleteAction={(itemId) =>
+                  setProcrastinations(procrastinations.filter((item) => item.id !== itemId))
+                }
+              />
+            )}
           </Col>
         </Row>
       </Container>

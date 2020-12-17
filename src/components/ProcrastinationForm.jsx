@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Form, Button } from 'react-bootstrap';
-import ConfirmModal from './ConfirmModal';
+import CreateConfirmModal from './CreateConfirmModal';
 
 export default function ProcrastinationForm({ onSubmit }) {
   const [submitClickCount, setSubmitClickCount] = useState(0);
   const [subject, setSubject] = useState('');
   const [description, setDescription] = useState('');
-  const [displayConfirmModal, setDisplayConfirmModal] = useState(false);
+  const [showConfirmModal, setShowConfirmDialog] = useState(false);
 
   const resetForm = () => {
     setSubject('');
@@ -15,15 +16,15 @@ export default function ProcrastinationForm({ onSubmit }) {
 
   const handleSubmit = () => {
     setSubmitClickCount(0);
-    onSubmit({ subject, description });
+    onSubmit({ id: uuidv4(), subject, description });
     resetForm();
   };
 
   useEffect(() => {
     if (submitClickCount >= 3) {
-      setDisplayConfirmModal(true);
+      setShowConfirmDialog(true);
     } else {
-      setDisplayConfirmModal(false);
+      setShowConfirmDialog(false);
     }
   }, [submitClickCount]);
 
@@ -44,7 +45,7 @@ export default function ProcrastinationForm({ onSubmit }) {
           <Form.Label>Description</Form.Label>
           <Form.Control
             type='textarea'
-            placeholder='Not mandatory = skip it'
+            placeholder='Not mandatory = skip it please'
             value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
@@ -61,10 +62,10 @@ export default function ProcrastinationForm({ onSubmit }) {
         {submitClickCount === 2 && <p>But I don't wannaaa</p>}
       </Form>
 
-      <ConfirmModal
-        show={displayConfirmModal}
+      <CreateConfirmModal
+        show={showConfirmModal}
         handleSubmit={handleSubmit}
-        handleClose={() => setDisplayConfirmModal(false)}
+        handleClose={() => setShowConfirmDialog(false)}
       />
     </>
   );

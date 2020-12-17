@@ -9,10 +9,10 @@ export default function ConfirmModal({ show, handleClose, handleSubmit }) {
       </Modal.Header>
       <Modal.Body>Are you really really sure that I need to do this right now?</Modal.Body>
       <Modal.Footer>
-        <Button variant='secondary' onClick={handleClose}>
+        <Button variant='primary' onClick={handleClose}>
           Nope, keep doing nothing
         </Button>
-        <Button variant='primary' onClick={handleSubmit}>
+        <Button variant='secondary' onClick={handleSubmit}>
           Yes, I'm sure!
         </Button>
       </Modal.Footer>
