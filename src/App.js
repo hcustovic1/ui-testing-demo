@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Navbar from './components/Navbar';
+import { Container, Row, Col } from 'react-bootstrap';
+import ProcrastinationForm from './components/ProcrastinationForm';
+import ProcrastinationList from './components/ProcrastinationList';
 
 function App() {
+  const [procrastinations, setProcrastinations] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section>
+      <Container>
+        <Navbar />
+      </Container>
+
+      <Container style={{ textAlign: 'center' }}>
+        <Row>
+          <Col>
+            <ProcrastinationForm
+              onSubmit={(newProcrastination) => {
+                setProcrastinations([...procrastinations, newProcrastination]);
+              }}
+            />
+          </Col>
+          <Col>
+            {procrastinations.length > 0 && <ProcrastinationList list={procrastinations} />}
+          </Col>
+        </Row>
+      </Container>
+    </section>
   );
 }
 
